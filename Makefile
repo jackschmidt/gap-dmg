@@ -2,8 +2,8 @@
 # Where is a decent copy of GAP to stuff into the app?
 # It should have a workspace compiled as bin/workspace.
 # It should have its packages compiled.
-GAPDIR=$(HOME)/svn/gap/4.5/gap4r5
-#GAPDIR=gap4r5
+#GAPDIR=$(HOME)/svn/gap/4.5/gap4r5
+GAPDIR=/Applications/GAP.app/gap4r5
 
 all: GAP.dmg
 
@@ -16,10 +16,7 @@ GAP/GAP.app: open_gap.scpt
 	cp -a 2008_gap_icon.icns GAP/GAP.app/Contents/Resources/applet.icns
 
 GAP/GAP.app/gap4r5: GAP/GAP.app
-	rsync -a $(GAPDIR)/ $@
-
-GAP/GAP.app/gap4r5/bin/workspace:
-	echo 'SaveWorkspace("'$@'");' | GAP/GAP.app/gap4r5/bin/gap.sh
+	rsync -a $(GAPDIR)/ $@ || true
 
 GAP/background.png: background.png
 	cp -a $< $@
@@ -28,7 +25,7 @@ background.png: background.svg
 	echo Hmm, I used Adobe Illustrator to convert it
 
 
-ro-GAP.dmg: GAP GAP/background.png GAP/GAP.app GAP/GAP.app/gap4r5 GAP/GAP.app/gap4r5/bin/workspace
+ro-GAP.dmg: GAP GAP/background.png GAP/GAP.app GAP/GAP.app/gap4r5
 	hdiutil create -srcfolder GAP $@ -ov
 
 rw-GAP.dmg: ro-GAP.dmg

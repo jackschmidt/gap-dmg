@@ -15,6 +15,6 @@ tell application "Terminal"
 	set myTab to selected tab of myWindow
 	tell myTab
 		set custom title to "GAP"
-		do script ("exec " & GAPDIR & "bin/gap.sh -L " & GAPDIR & "bin/workspace") in myTab
+		do script ("exec " & GAPDIR & "bin/*64/gap -l " & GAPDIR ) in myTab
 	end tell
 end tell
